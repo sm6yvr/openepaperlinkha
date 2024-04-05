@@ -1,0 +1,201 @@
+alias: openepaper-29-energy
+description: 294x128
+trigger:
+  - platform: time_pattern
+    minutes: /3
+condition:
+  - condition: time
+    after: "05:45:00"
+    before: "23:15:00"
+action:
+  - service: open_epaper_link.drawcustom
+    target:
+      entity_id: open_epaper_link.000002838D843B19
+    data:
+      background: white
+      dry-run: false
+      ttl: 60
+      rotate: 0
+      payload:
+        - type: line
+          fill: black
+          width: 2
+          x_start: 95
+          y_start: 0
+          x_end: 95
+          y_end: 100
+        - type: line
+          fill: black
+          width: 2
+          x_start: 194
+          y_start: 0
+          x_end: 194
+          y_end: 100
+        - type: line
+          fill: black
+          width: 2
+          x_start: 0
+          y_start: 102
+          x_end: 296
+          y_end: 102
+        - type: text
+          value: Solceller
+          font: ppb.ttf
+          x: 40
+          "y": 13
+          size: 15
+          color: black
+          anchor: mm
+        - type: icon
+          value: solar-power-variant-outline
+          x: 78
+          "y": 5
+          size: 12
+          color: black
+        - type: text
+          value: Producerat
+          font: ppb.ttf
+          x: 46
+          "y": 35
+          size: 10
+          color: black
+          anchor: mm
+        - type: text
+          value: "{{ states('sensor.daily_pv_generation')| round (1)}} kWh"
+          font: ppb.ttf
+          x: 48
+          "y": 50
+          size: 15
+          color: black
+          anchor: mm
+        - type: text
+          value: Producerar
+          font: ppb.ttf
+          x: 48
+          "y": 74
+          size: 10
+          color: black
+          anchor: mm
+        - type: text
+          value: "{{ states('sensor.total_dc_power')}} W"
+          font: ppb.ttf
+          x: 48
+          "y": 89
+          size: 15
+          color: black
+          anchor: mm
+        - type: text
+          value: Batteri
+          font: ppb.ttf
+          x: 137
+          "y": 13
+          size: 15
+          color: black
+          anchor: mm
+        - type: icon
+          value: home-battery
+          x: 170
+          "y": 2
+          size: 18
+          color: black
+        - type: text
+          value: Nivå
+          font: ppb.ttf
+          x: 148
+          "y": 35
+          size: 10
+          color: black
+          anchor: mm
+        - type: text
+          value: "{{ states('sensor.battery_level')}} %"
+          font: ppb.ttf
+          x: 148
+          "y": 50
+          size: 15
+          color: black
+          anchor: mm
+        - type: text
+          value: In / Ut
+          font: ppb.ttf
+          x: 148
+          "y": 74
+          size: 12
+          color: black
+          anchor: mm
+        - type: text
+          value: >-
+            {{ states('sensor.battery_charging_power')}} / {{
+            states('sensor.battery_discharging_power')}} W
+          font: ppb.ttf
+          x: 148
+          "y": 89
+          size: 12
+          color: black
+          anchor: mm
+        - type: text
+          value: Huset
+          font: ppb.ttf
+          x: 235
+          "y": 13
+          size: 15
+          color: black
+          anchor: mm
+        - type: icon
+          value: home-import-outline
+          x: 268
+          "y": 2
+          size: 18
+          color: black
+        - type: text
+          value: Förbrukat
+          font: ppb.ttf
+          x: 248
+          "y": 35
+          size: 10
+          color: black
+          anchor: mm
+        - type: text
+          value: "{{ states('sensor.daily_load_energy')}} kWh"
+          font: ppb.ttf
+          x: 248
+          "y": 50
+          size: 15
+          color: black
+          anchor: mm
+        - type: text
+          value: Förbrukar
+          font: ppb.ttf
+          x: 248
+          "y": 74
+          size: 10
+          color: black
+          anchor: mm
+        - type: text
+          value: "{{ states('sensor.load_power')}} W"
+          font: ppb.ttf
+          x: 248
+          "y": 89
+          size: 12
+          color: black
+          anchor: mm
+        - type: text
+          value: >-
+            Uppdaterad: {{ ((state_attr('automation.CHANGE_TO_AUTOMATION_NAME',
+            'last_triggered') ) | as_local).strftime('%H:%M')}}
+          font: ppb.ttf
+          x: 70
+          "y": 115
+          size: 14
+          color: black
+          anchor: mm
+        - type: text
+          value: >-
+            Elpris: ≈ {{ states('sensor.CHANGE_TO_ELECTRICITY_PRICE')|
+            round (1)}} kr 
+          font: ppb.ttf
+          x: 235
+          "y": 115
+          size: 14
+          color: black
+          anchor: mm
+mode: single
